@@ -1,3 +1,7 @@
+.git
+.gitignore
+.editorconfig
+
 # Compiled files
 **/.terraform/*
 *.tfstate
