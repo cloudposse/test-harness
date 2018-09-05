@@ -29,6 +29,15 @@ steps:
     tags:
     - "${{SEMVERSION_COMMIT_SHORT}}"
 
+  push_image_commit_to_dockerhub:
+    title: Push image with commit based semver tags
+    type: push
+    registry: dockerhub
+    image_name: cloudposse/test-harness
+    candidate: ${{build_image}}
+    tags:
+    - "${{SEMVERSION_COMMIT_SHORT}}"
+
   push_image_branch_to_cfcr:
     title: Push image with branch based semver tags
     type: push
