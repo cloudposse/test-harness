@@ -1,19 +1,18 @@
 load 'lib'
 
 function setup() {
-#  skip_unless_terraform
-#  init-terraform
-:
+  skip_unless_terraform
+  clean
+  init-terraform
 }
 
 function teardown() {
-#  skip_unless_terraform
   clean
 }
 
 @test "check if terraform plan works" {
   skip_unless_terraform
-  run make -s plan
+  run bash -c "terraform plan -input=false -detailed-exitcode -no-color"
   log "$output"
   [ $status -eq 0 ]
 }

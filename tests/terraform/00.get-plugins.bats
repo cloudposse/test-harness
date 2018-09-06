@@ -10,5 +10,5 @@ function teardown() {
 
 @test "check if terraform plugins are valid" {
   skip_unless_terraform
-  terraform init -get-plugins -backend=false -input=false  
+  run bash -c "terraform init -get-plugins -backend=false -input=false"
 }
