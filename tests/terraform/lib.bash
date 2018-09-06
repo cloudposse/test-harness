@@ -36,5 +36,5 @@ function clean() {
 }
 
 function skip_unless_terraform() {
-  [ *.tf ] || skip "no *.tf files"
+  [[ -n $(echo *.tf) ]] || skip "no *.tf files"
 }

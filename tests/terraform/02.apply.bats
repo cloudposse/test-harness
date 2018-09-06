@@ -10,9 +10,9 @@ function teardown() {
   clean
 }
 
-@test "check if terraform plan works" {
+@test "check if terraform apply works" {
   skip_unless_terraform
-  run terraform plan -input=false -detailed-exitcode -no-color
+  run terraform apply -input=false -auto-approve -detailed-exitcode -no-color
   log "$output"
   [ $status -eq 0 ]
 }
