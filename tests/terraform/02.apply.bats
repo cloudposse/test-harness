@@ -12,7 +12,7 @@ function teardown() {
 
 @test "check if terraform apply works" {
   skip_unless_terraform
-  run bash -c "terraform apply -input=false -auto-approve -detailed-exitcode -no-color"
+  run terraform apply -input=false -auto-approve -detailed-exitcode -no-color
   log "$output"
   [ $status -eq 0 ]
 }
