@@ -2,7 +2,7 @@
 
 [![Cloud Posse](https://cloudposse.com/logo-300x69.svg)](https://cloudposse.com)
 
-# test-harness [![Build Status](https://travis-ci.org/cloudposse/test-harness.svg?branch=master)](https://travis-ci.org/cloudposse/test-harness) [![Codefresh Build Status](https://g.codefresh.io/api/badges/build?repoOwner=cloudposse&repoName=test-harness&branch=master&pipelineName=test-harness&accountName=cloudposse&type=cf-1)](https://g.codefresh.io/pipelines/test-harness/builds) [![Latest Release](https://img.shields.io/github/release/cloudposse/test-harness.svg)](https://github.com/cloudposse/test-harness/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
+# test-harness [![Codefresh Build Status](https://g.codefresh.io/api/badges/build?repoOwner=cloudposse&repoName=test-harness&branch=master&pipelineName=test-harness&accountName=cloudposse&type=cf-1)](https://g.codefresh.io/pipelines/test-harness/builds) [![Latest Release](https://img.shields.io/github/release/cloudposse/test-harness.svg)](https://github.com/cloudposse/test-harness/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
 
 
 Collection of Makefiles and test scripts to facilitate testing Terraform modules, Kubernetes resources, Helm charts, and more.
@@ -35,8 +35,6 @@ FROM cloudposse/geodesic:0.28.0
 
 # Copy root modules into /conf folder
 COPY --from=test-harness /tests/ /tests/
-
-WORKDIR /tests/
 ```
 
 

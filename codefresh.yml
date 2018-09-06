@@ -85,7 +85,6 @@ steps:
         all:
           executeForTag: "'${{SEMVERSION_TAG}}' != ''"
 
-
   push_image_latest_to_cfcf:
     title: Push image with latest tag
     type: push
