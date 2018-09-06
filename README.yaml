@@ -1,0 +1,69 @@
+---
+#
+# This is the canonical configuration for the `README.md`
+# Run `make readme` to rebuild the `README.md`
+#
+
+# Name of this project
+name: "test-harness"
+
+# Logo for this project
+#logo: docs/logo.png
+
+# License of this project
+license: "APACHE2"
+
+# Canonical GitHub repo
+github_repo: "cloudposse/test-harness"
+
+# Badges to display
+badges:
+- name: "Build Status"
+  image: "https://travis-ci.org/cloudposse/test-harness.svg?branch=master"
+  url: "https://travis-ci.org/cloudposse/test-harness"
+- name: "Codefresh Build Status"
+  image: "https://g.codefresh.io/api/badges/build?repoOwner=cloudposse&repoName=test-harness&branch=master&pipelineName=test-harness&accountName=cloudposse&type=cf-1"
+  url: "https://g.codefresh.io/pipelines/test-harness/builds"
+- name: "Latest Release"
+  image: "https://img.shields.io/github/release/cloudposse/test-harness.svg"
+  url: "https://github.com/cloudposse/test-harness/releases/latest"
+- name: "Slack Community"
+  image: "https://slack.cloudposse.com/badge.svg"
+  url: "https://slack.cloudposse.com"
+
+references:
+- name: "Cloud Posse Documentation"
+  description: "Complete documentation for the Cloud Posse solution"
+  url: "https://docs.cloudposse.com"
+
+# Short description of this project
+description: |-
+  Collection of Makefiles and test scripts to facilitate testing Terraform modules, Kubernetes resources, Helm charts, and more.
+
+
+# How to use this project
+usage: |-
+  Use the `test-harness` Docker image as the base image in the application `Dockerfile`, and copy the modules from `tests` folder into `/tests/` folder in the Docker container.
+
+  ```dockerfile
+  FROM cloudposse/test-harness:0.1.0 as test-harness
+
+  FROM cloudposse/geodesic:0.28.0
+
+  # Copy root modules into /conf folder
+  COPY --from=test-harness /tests/ /tests/
+
+  WORKDIR /tests/
+  ```
+
+include:
+- "docs/targets.md"
+
+# Contributors to this project
+contributors:
+- name: "Erik Osterman"
+  github: "osterman"
+- name: "Andriy Knysh"
+  github: "aknysh"
+- name: "Igor Rodionov"
+  github: "goruha"
