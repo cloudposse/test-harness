@@ -3,7 +3,7 @@ load 'lib'
 function setup() {
   skip_unless_terraform
   clean
-  init-terraform
+  terraform init
 }
 
 function teardown() {

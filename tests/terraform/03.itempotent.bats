@@ -1,9 +1,8 @@
 load 'lib'
 
 function setup() {
-#  skip_unless_terraform
-#  init-terraform
-:
+  skip_unless_terraform
+  terraform init
 }
 
 function teardown() {
@@ -12,8 +11,6 @@ function teardown() {
 }
 
 @test "check if terraform is idempotent" {
-  skip_unless_terraform
-
   # https://www.terraform.io/docs/commands/plan.html#usage
 
   # Run `terraform plan` (expect changes?)
