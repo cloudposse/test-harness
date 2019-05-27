@@ -1,3 +1,3 @@
 FROM scratch
-COPY tests/ /tests/
+COPY test/ /test/
 WORKDIR /
