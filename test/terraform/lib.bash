@@ -13,7 +13,6 @@ function skip_if_disabled() {
   env=${env//-/_}
   env=${env//./_}
   env=TEST_${env}
-  echo $env
   if [ "${!env}" == "false" ]; then
     skip "${env} is false"
   fi
@@ -21,13 +20,16 @@ function skip_if_disabled() {
 
 function log() {
   (
+  local output="$*"
+  if [ -n "${output}" ]; then
   echo
   echo "Test: ${BATS_TEST_DESCRIPTION}"
   echo "File: $(basename ${BATS_TEST_FILENAME})"
   echo "---------------------------------"
-  echo "$*"
+  echo "${output}"
   echo "---------------------------------"
   echo
+  fi
   ) | tee -a ${OUTPUT_LOG} >&3
 }
 
