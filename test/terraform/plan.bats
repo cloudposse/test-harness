@@ -3,7 +3,8 @@ load 'lib'
 function setup() {
   skip_unless_terraform
   clean
-  init-terraform
+  export TF_CLI_ARGS_plan="-input=false -detailed-exitcode"
+  terraform init
 }
 
 function teardown() {
@@ -12,7 +13,7 @@ function teardown() {
 
 @test "check if terraform plan works" {
   skip_unless_terraform
-  run terraform plan -input=false -detailed-exitcode -no-color
+  run terraform plan
   log "$output"
   [ $status -eq 0 ]
 }

@@ -10,7 +10,7 @@ function teardown() {
 
 @test "check if terraform init works" {
   skip_unless_terraform
-  run make -s init
+  run terraform init
   log "$output"
   [ $status -eq 0 ]
 }
