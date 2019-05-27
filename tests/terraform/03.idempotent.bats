@@ -32,12 +32,12 @@ function teardown() {
   [ $status -eq 0 ]
 
   # Run `terraform destroy`
-  run terraform destroy -auto-approve 
+  run terraform destroy
   log "$output"
   [ $status -eq 0 ]
 
   # Run `terraform plan` (expect changes?)
-  run terraform plan -input=false -detailed-exitcode -no-color
+  run terraform plan
   log "$output"
   [ $status -eq 2 ]
 
