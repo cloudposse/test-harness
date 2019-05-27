@@ -2,7 +2,7 @@
 
 shopt -s nullglob
 
-OUTPUT_LOG=output.txt
+OUTPUT_LOG="${OUTPUT_LOG:-test.log}"
 
 function skip_if_disabled() {
   local env
