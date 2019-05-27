@@ -3,7 +3,7 @@ load 'lib'
 function setup() {
   skip_unless_terraform
   clean
-  export TF_CLI_ARGS_apply="-auto-approve -input=false -detailed-exitcode"
+  export TF_CLI_ARGS_apply="-auto-approve -input=false"
   export TF_CLI_ARGS_destroy="-auto-approve"
   terraform init
 }
