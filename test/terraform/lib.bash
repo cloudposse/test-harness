@@ -2,7 +2,7 @@
 
 shopt -s nullglob
 
-OUTPUT_LOG="${OUTPUT_LOG:-test.log}"
+BATS_LOG="${BATS_LOG:-test.log}"
 
 function skip_if_disabled() {
   local env
@@ -29,7 +29,7 @@ function log() {
   echo "${output}"
   echo "---------------------------------"
   echo
-  ) | tee -a ${OUTPUT_LOG} >&3
+  ) | tee -a ${BATS_LOG} >&3
   fi
 }
 
