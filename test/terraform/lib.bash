@@ -19,9 +19,9 @@ function skip_if_disabled() {
 }
 
 function log() {
-  (
   local output="$*"
   if [ -n "${output}" ]; then
+  (
   echo
   echo "Test: ${BATS_TEST_DESCRIPTION}"
   echo "File: $(basename ${BATS_TEST_FILENAME})"
@@ -29,8 +29,8 @@ function log() {
   echo "${output}"
   echo "---------------------------------"
   echo
-  fi
   ) | tee -a ${OUTPUT_LOG} >&3
+  fi
 }
 
 function clean() {
