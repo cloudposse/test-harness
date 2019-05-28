@@ -11,6 +11,8 @@ function setup() {
 function teardown() {
   terraform destroy
   clean
+  unset TF_CLI_ARGS_apply
+  unset TF_CLI_ARGS_destroy
 }
 
 @test "check if terraform apply works" {
