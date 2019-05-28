@@ -1,9 +1,11 @@
 load 'lib'
 
 function setup() {
+:
 }
 
 function teardown() {
+:
 }
 
 @test "check if terraform modules are properly pinned" {
