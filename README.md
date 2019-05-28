@@ -3,7 +3,7 @@
 
 [![Cloud Posse][logo]](https://cpco.io/homepage)
 
-# test-harness [![Codefresh Build Status](https://g.codefresh.io/api/badges/pipeline/cloudposse/cloudposse%2Fgeodesic%2Ftest-harness?type=cf-1)](https://g.codefresh.io/public/accounts/cloudposse/pipelines/cloudposse/test-harness/test-harness) [![Latest Release](https://img.shields.io/github/release/cloudposse/test-harness.svg)](https://github.com/cloudposse/test-harness/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
+# test-harness [![Codefresh Build Status](https://g.codefresh.io/api/badges/pipeline/cloudposse/cloudposse%2Ftest-harness%2Ftest-harness?type=cf-1)](https://g.codefresh.io/public/accounts/cloudposse/pipelines/cloudposse/test-harness/test-harness) [![Latest Release](https://img.shields.io/github/release/cloudposse/test-harness.svg)](https://github.com/cloudposse/test-harness/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
 
 
 Collection of Makefiles and test scripts to facilitate testing Terraform modules, Kubernetes resources, Helm charts, and more.
