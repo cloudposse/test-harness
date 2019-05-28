@@ -11,6 +11,9 @@ function setup() {
 function teardown() {
   skip_unless_terraform
   clean
+  unset TF_CLI_ARGS_plan
+  unset TF_CLI_ARGS_apply
+  unset TF_CLI_ARGS_destroy
 }
 
 @test "check if terraform is idempotent" {

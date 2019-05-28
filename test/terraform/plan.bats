@@ -9,6 +9,7 @@ function setup() {
 
 function teardown() {
   clean
+  unset TF_CLI_ARGS_plan
 }
 
 @test "check if terraform plan works" {
