@@ -6,11 +6,11 @@ function setup() {
 }
 
 function teardown() {
-  unset TF_CLI_ARGS_init
   clean
+  unset TF_CLI_ARGS_init
 }
 
 @test "check if terraform plugins are valid" {
   skip_unless_terraform
-  run terraform init
+  terraform init
 }
