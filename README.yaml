@@ -19,8 +19,8 @@ github_repo: "cloudposse/test-harness"
 # Badges to display
 badges:
 - name: "Codefresh Build Status"
-  image: "https://g.codefresh.io/api/badges/build?repoOwner=cloudposse&repoName=test-harness&branch=master&pipelineName=test-harness&accountName=cloudposse&type=cf-1"
-  url: "https://g.codefresh.io/pipelines/test-harness/builds"
+  image: "https://g.codefresh.io/api/badges/pipeline/cloudposse/cloudposse%2Fgeodesic%2Ftest-harness?type=cf-1"
+  url: "https://g.codefresh.io/public/accounts/cloudposse/pipelines/cloudposse/test-harness/test-harness"
 - name: "Latest Release"
   image: "https://img.shields.io/github/release/cloudposse/test-harness.svg"
   url: "https://github.com/cloudposse/test-harness/releases/latest"
