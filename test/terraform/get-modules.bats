@@ -1,7 +1,7 @@
 load 'lib'
 
 function setup() {
-  exprt TF_CLI_ARGS_init="-get-plugins -backend=false -input=false"
+  export TF_CLI_ARGS_init="-get-plugins -backend=false -input=false"
   clean
 }
 
