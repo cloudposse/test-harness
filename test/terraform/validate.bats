@@ -16,11 +16,9 @@ function teardown() {
   skip_unless_terraform
   if [[ "`terraform version | head -1`" =~ 0.12 ]]; then
     run terraform validate .
-    log "$output"
     [ $status -eq 0 ]
   else
     run terraform validate -check-variables=false
-    log "$output"
     [ $status -eq 0 ]
     [ -z "$output" ]
   fi
