@@ -10,7 +10,10 @@ function teardown() {
 
 @test "check if terraform modules are properly pinned" {
   skip_unless_terraform
-  run bash -c "grep -Eo '^\s*source\s*=\s*"(.*?)"' *.tf | cut -d'"' -f2 | sort -u | sed 's/^.*?ref=//' | grep -Ev '^(tags/[0-9]+\\.[0-9]+.*|)$$'"
+  TMPFILE="$(mktemp /tmp/terraform-modules-XXXXXXXXXXX.json)"
+  grep -Eo '^\s*source\s*=\s*"(.*?)"' *.tf | cut -d'"' -f2 | sort -u | sed 's/^.*?ref=//' > $TMPFILE
+  run bash -c "grep -Ev '^(tags/[0-9]+\\.[0-9]+.*|)$$' $TMPFILE"
   log "$output"
-  [ $status -ne 0 ]
+  rm -f $TMPFILE
+  [ $status -eq 0 ]
 }
