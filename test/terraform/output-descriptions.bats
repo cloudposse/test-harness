@@ -9,4 +9,3 @@ load 'lib'
   log "$output"
   [ -z "$output" ]
 }
-
