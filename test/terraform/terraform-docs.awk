@@ -34,6 +34,7 @@
     if (type ~ "object") {
       print "  type = \"object\""
     } else {
+      gsub(/"/, "", $3)
       print "  type = \"" $3 "\"" 
     }
   }

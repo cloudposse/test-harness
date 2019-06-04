@@ -1,19 +1,16 @@
 load 'lib'
 
 function setup() {
-:
+  TMPFILE="$(mktemp /tmp/terraform-modules-XXXXXXXXXXX.txt)"
 }
 
 function teardown() {
+  #rm -f $TMPFILE
 :
 }
 
 @test "check if terraform modules are properly pinned" {
   skip_unless_terraform
-  TMPFILE="$(mktemp /tmp/terraform-modules-XXXXXXXXXXX.json)"
   grep -Eo '^\s*source\s*=\s*"(.*?)"' *.tf | cut -d'"' -f2 | sort -u | sed 's/^.*?ref=//' > $TMPFILE
-  run bash -c "grep -Ev '^(tags/[0-9]+\\.[0-9]+.*|)$$' $TMPFILE"
-  log "$output"
-  rm -f $TMPFILE
-  [ $status -eq 0 ]
+  grep -E '^(tags/[0-9]+\.[0-9]+.*|)$' $TMPFILE
 }
