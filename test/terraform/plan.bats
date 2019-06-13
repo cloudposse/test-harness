@@ -16,5 +16,5 @@ function teardown() {
   skip_unless_terraform
   run terraform plan
   log "$output"
-  [ $status -eq 0 ]
+  [ $status -eq 0 ] || [ $status -eq 2 ]
 }
