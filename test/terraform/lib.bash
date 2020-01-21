@@ -42,18 +42,8 @@ function skip_unless_terraform() {
 }
 
 function terraform_docs() {
-#  local TMP_FILE
   which awk 2>&1 >/dev/null || ( echo "awk not available"; exit 1)
   which terraform 2>&1 >/dev/null || ( echo "terraform not available"; exit 1)
   which terraform-docs 2>&1 >/dev/null || ( echo "terraform-docs not available"; exit 1)
-  terraform-docs $1 $2
-
-#  if [[ "`terraform version | head -1`" =~ 0\.12 ]]; then
-#      TMP_FILE="$(mktemp /tmp/terraform-docs-XXXXXXXXXX.tf)"
-#      awk -f ${BATS_TEST_DIRNAME}/terraform-docs.awk $2/*.tf > ${TMP_FILE}
-#      terraform-docs $1 ${TMP_FILE}
-#      rm -f ${TMP_FILE}
-#  else
-#      terraform-docs $1 $2
-#  fi
+  terraform-docs --no-providers --no-header $1 $2
 }
