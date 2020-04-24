@@ -9,7 +9,7 @@ function setup() {
 
 function teardown() {
   clean
-  unset TF_CLI_ARGS_plan
+  unset TF_CLI_ARGS_init
   unset AWS_DEFAULT_REGION
 }
 
