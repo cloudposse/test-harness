@@ -37,6 +37,11 @@ references:
 description: |-
   Collection of Makefiles and test scripts to facilitate testing Terraform modules, Kubernetes resources, Helm charts, and more.
 
+  ## Prerequisites
+
+  1. [Bats-core](https://github.com/bats-core/bats-core)
+  1. Bash v5+
+    - If you're on Mac, you're possibly running Bash v3. You can upgrade via homebrew: `brew install bash`
 
 # How to use this project
 usage: |-
