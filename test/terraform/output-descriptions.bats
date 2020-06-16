@@ -10,7 +10,7 @@ function teardown() {
 
 @test "check if terraform outputs have descriptions" {
   skip_unless_terraform
-  terraform_docs json . > $TMPFILE
+  terraform-docs json . > $TMPFILE
   run bash -c "jq -rS '.outputs[] | select (.description == \"\" or .description == null) | .name + \" is missing a description\"' < $TMPFILE"
   log "$output"
   [ -z "$output" ]
