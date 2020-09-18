@@ -1,6 +1,6 @@
-FROM cloudposse/build-harness:0.37.0
+FROM cloudposse/build-harness:0.44.2
 
-RUN apk add go terraform_0.11@cloudposse terraform_0.12@cloudposse terraform_0.13@cloudposse
+RUN apk add go terraform-0.11@cloudposse terraform-0.12@cloudposse terraform-0.13@cloudposse~=0.13.3
 
 COPY test/ /test/
 
