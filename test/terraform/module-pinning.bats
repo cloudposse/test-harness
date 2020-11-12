@@ -10,6 +10,7 @@ function teardown() {
 }
 
 @test "check if terraform modules are properly pinned" {
+  skip_if_disabled
   skip_unless_terraform
   grep -Eo '^\s*source\s*=\s*"(.*?)"' *.tf | cut -d'"' -f2 | sort -u > $TMPFILE
   if [ -s $TMPFILE ]; then
