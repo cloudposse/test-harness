@@ -11,7 +11,7 @@ function teardown() {
 
 @test "check if terraform-config-inspect is installed" {
   skip_unless_terraform
-  if [[ which terraform-config-inspect ]]; then
+  if ! which terraform-config-inspect; then
     log "'terraform-config-inspect' go module required. Check https://github.com/hashicorp/terraform-config-inspect for instructions "
     false
   fi
