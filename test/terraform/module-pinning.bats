@@ -11,9 +11,11 @@ function teardown() {
 
 @test "check if terraform modules are properly pinned" {
   skip_unless_terraform
-  TCI_BINARY="$(go env GOPATH)/bin/terraform-config-inspect"
-  if [[ ! -f $TCI_BINARY ]]; then
-    log "Looking for 'terraform-config-inspect' in $TCI_BINARY"
+  if [[ -f "$/conf/go/bin/terraform-config-inspect" ]]; then
+    TCI_BINARY="/conf/go/bin/terraform-config-inspect"
+  elif [[ -f "$(go env GOPATH)/bin/terraform-config-inspect" ]]; then
+    TCI_BINARY="$(go env GOPATH)/bin/terraform-config-inspect"
+  else
     log "'terraform-config-inspect' go module required. Check https://github.com/hashicorp/terraform-config-inspect for instructions "
     false
   fi
