@@ -11,17 +11,12 @@ function teardown() {
 
 @test "check if terraform modules are properly pinned" {
   skip_unless_terraform
-  if [[ -f "$/conf/go/bin/terraform-config-inspect" ]]; then
-    TCI_BINARY="/conf/go/bin/terraform-config-inspect"
-  elif [[ -f "$(go env GOPATH)/bin/terraform-config-inspect" ]]; then
-    TCI_BINARY="$(go env GOPATH)/bin/terraform-config-inspect"
+  grep -Eo '^\s*source\s*=\s*"(.*?)"' *.tf | cut -d'"' -f2 | sort -u > $TMPFILE
+  if [ -s $TMPFILE ]; then
+    # Verify the modules are pinned to `tags/x.y` or nothing at all (maybe using `version` parameter instead)
+    sed 's/^.*?ref=//' < $TMPFILE | grep -E '^(tags/[0-9]+\.[0-9]+.*|)$'
   else
-    log "'terraform-config-inspect' go module required. Check https://github.com/hashicorp/terraform-config-inspect for instructions "
-    false
+    # If the file is empty, then no modules are being used
+    true
   fi
-  ## extract all module calls into string with source then | then version (if version parameter exists)
-  $TCI_BINARY --json . | jq '.module_calls[] | "\(.source)|\(.version)"' > $TMPFILE
-  ## check if module url have version in tags or if version pinned with 'version' parameter for Terraform Registry notation
-  ## check diff between terraform-config-inspect output and regexp check to see if all cases are passing checks
-  grep -Eo '^(\".*?tags\/[0-9]+\.[0-9]+.*\|null\"\s?|\".*?\|[0-9]+\.[0-9]+.*\"\s?)+' $TMPFILE | diff $TMPFILE -
 }
