@@ -29,7 +29,7 @@ jobs:
         if [[ $VERSION =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
           TAGS="$TAGS,${{ github.repository }}:latest"
         fi
-        if [[ ${{ github.event_name }} == 'schedule ]]; then
+        if [[ ${{ github.event_name }} == 'schedule' ]]; then
           TAGS="$TAGS,${{ github.repository }}:latest,${{ github.repository }}:nightly"
         fi
         echo ::set-output name=tags::${TAGS}
