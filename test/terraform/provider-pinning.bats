@@ -33,15 +33,15 @@ function teardown() {
 @test "check if terraform providers have explicit source locations for TF =>0.13" {
   skip_unless_terraform
 
-  if vert "$(terraform-config-inspect --json . | jq -r '.required_core[]')" 0.12.26 >/devnull; then
+  if vert "$(terraform-config-inspect --json . | jq -r '.required_core[]')" 0.12.25 >/devnull; then
+    # Terraform version '$TERRAFORM_CORE_VERSION' less then 13. Skipping check for explicit provider source locations
+    # ref: https://www.terraform.io/upgrade-guides/0-13.html#explicit-provider-source-locations
+    skip "Minimum Terraform version less then 0.12.26. Skipping check for explicit provider source locations"
+  else
     ## extract all required providers with sources into string with 'provider' | then 'source'
     terraform-config-inspect --json . | jq '.required_providers | to_entries[] | "\(.key)|\(.value.source)"' > $TMPFILE
     ## check if provider source exists for every provider
     ## then check diff between terraform-config-inspect output and regexp check to see if all cases are passing checks
     grep -Ev '^\".*\|null"$' $TMPFILE | diff $TMPFILE -
-  else
-    # Terraform version '$TERRAFORM_CORE_VERSION' less then 13. Skipping check for explicit provider source locations
-    # ref: https://www.terraform.io/upgrade-guides/0-13.html#explicit-provider-source-locations
-    skip "Minimum Terraform version less then 0.12.26. Skipping check for explicit provider source locations"
   fi
 }
