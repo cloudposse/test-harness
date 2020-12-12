@@ -4,7 +4,7 @@ function setup() {
   skip_unless_terraform
   clean
   export TF_CLI_ARGS_init="-input=false -backend=false"
-  terraform init
+  terraform init >/dev/null
 }
 
 function teardown() {
@@ -22,6 +22,7 @@ function teardown() {
   else
     export AWS_DEFAULT_REGION="us-east-2"
     run terraform validate .
+    [ $status -eq 0 ] || log "$output"
     [ $status -eq 0 ]
   fi
 }

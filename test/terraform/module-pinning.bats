@@ -1,6 +1,10 @@
 load 'lib'
 
 function setup() {
+  if ! which terraform-config-inspect; then
+    log "'terraform-config-inspect' must be installed in the test harness. Check https://github.com/hashicorp/terraform-config-inspect for instructions "
+    false
+  fi
   TMPFILE="$(mktemp /tmp/terraform-modules-XXXXXXXXXXX.txt)"
 }
 
@@ -9,19 +13,20 @@ function teardown() {
 :
 }
 
-@test "check if terraform-config-inspect is installed" {
-  skip_unless_terraform
-  if ! which terraform-config-inspect; then
-    log "'terraform-config-inspect' go module required. Check https://github.com/hashicorp/terraform-config-inspect for instructions "
-    false
-  fi
-}
-
 @test "check if terraform modules are properly pinned" {
   skip_unless_terraform
   ## extract all module calls (except submodules in ./modules/) into string with source then | then version (if version parameter exists)
   terraform-config-inspect --json . | jq '.module_calls[] | "\(.source)|\(.version)"' | grep -v -F '"./modules' > $TMPFILE
   ## check if module url have version in tags or if version pinned with 'version' parameter for Terraform Registry notation
   ## check diff between terraform-config-inspect output and regexp check to see if all cases are passing checks
-  grep -Eo '^(\".*?tags\/[0-9]+\.[0-9]+.*\|null\"\s?|\".*?\|[0-9]+\.[0-9]+.*\"\s?)+' $TMPFILE | diff $TMPFILE -
+  fail=$(grep -vE '^(\".*?tags\/[0-9]+\.[0-9]+.*\|null\"\s?|\".*?\|[0-9]+\.[0-9]+.*\"\s?)+' $TMPFILE) || true
+  if [[ -n "$fail" ]]; then
+    printf '\n* Cloud Posse requires all module sources to be pinned to a specific version, e.g. 0.9.1\n'
+    printf '* Please fix these module sources:\n'
+    nl=$'\n'
+    printf "%s\n" "${fail[@]}" | sed -e 's/"/  - /' -e 's/|null//' | sed -E 's/^  - ([^|]+)\|(.*)$/  - source  = "\1"'"\\$nl"'    version = "\2"/g'
+    printf "\n\n"
+    exit 1
+  fi
+  true
 }
