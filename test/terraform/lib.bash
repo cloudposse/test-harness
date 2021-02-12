@@ -42,6 +42,7 @@ function log() {
     echo "<details>"
     echo "<summary>Test: ${BATS_TEST_DESCRIPTION}</summary>"
     echo '```'
+    echo
   else
     echo "Test: ${BATS_TEST_DESCRIPTION}"
   fi
@@ -51,6 +52,7 @@ function log() {
   echo "---------------------------------"
   if [ -n "$LOG_MARKDOWN" ]; then
     echo '```'
+    echo
     echo "</details>"
   fi
   echo
