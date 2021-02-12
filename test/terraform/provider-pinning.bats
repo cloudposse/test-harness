@@ -33,8 +33,8 @@ function teardown() {
   ## then check diff between terraform-config-inspect output and regexp check to see if all cases are passing checks
   fail=$(grep -E '[~>]' $TMPFILE) || true
   if [[ -n "$fail" ]]; then
-    output_msg=$(printf '\n* Cloud Posse requires all providers to be pinned with ">=" constraints and only ">=" constraints\n')
-    output_msg+=$(printf '* Please fix these constraints:\n')
+    output_msg=$'\nCloud Posse requires all providers to be pinned with ">=" constraints and only ">=" constraints\n'
+    output_msg+=$'Please fix these constraints:\n'
     output_msg+=$(printf "%s\n" "${fail[@]}" | sed 's/|/  = /g' | sed 's/"//g')
     log "$output_msg"
     return 1
@@ -55,9 +55,9 @@ function teardown() {
     ## check if provider source exists for every provider
     fail=$(grep -F '|null' $TMPFILE) || true
     if [[ -n "$fail" ]]; then
-      output_msg=$(printf '\n* Cloud Posse requires all providers to use registry format introduced in Terraform 0.13, for example\n')
-      output_msg+=$(printf '    aws = {\n       source  = "hashicorp/aws"\n       version = ">= 3.0"\n    }\n\n')
-      output_msg+=$(printf '* Please add constraints for these providers:\n')
+      output_msg=$'\nCloud Posse requires all providers to use registry format introduced in Terraform 0.13, for example\n'
+      output_msg+=$'    aws = {\n       source  = "hashicorp/aws"\n       version = ">= 3.0"\n    }\n\n'
+      output_msg+=$'Please add constraints for these providers:\n'
       output_msg+=$(printf "%s\n" "${fail[@]}" | cut '-d|' -f 1 | sed 's/"//g')
       log "$output_msg"
       return 1

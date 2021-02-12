@@ -22,8 +22,8 @@ function teardown() {
   ## check diff between terraform-config-inspect output and regexp check to see if all cases are passing checks
   fail=$(grep -vE '^(\".*?tags\/[0-9]+\.[0-9]+.*\|null\"\s?|\".*?\|[0-9]+\.[0-9]+.*\"\s?)+' $TMPFILE) || true
   if [[ -n "$fail" ]]; then
-    output_msg=$(printf '\n* Cloud Posse requires all module sources to be pinned to a specific version, e.g. 0.9.1\n')
-    output_msg+=$(printf '* Please fix these module sources:\n')
+    output_msg=$'\nCloud Posse requires all module sources to be pinned to a specific version, e.g. 0.9.1\n'
+    output_msg+=$'Please fix these module sources:\n'
     nl=$'\n'
     output_msg+=$(printf "%s\n" "${fail[@]}" | sed -e 's/"/  - /' -e 's/|null//' | sed -E 's/^  - ([^|]+)\|(.*)$/  - source  = "\1"'"\\$nl"'    version = "\2"/g')
     log "$output_msg"
