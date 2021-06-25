@@ -1,5 +1,6 @@
+<!-- markdownlint-disable -->
 ## Makefile Targets
-```
+```text
 Available targets:
 
   build                               Build docker image
@@ -8,3 +9,4 @@ Available targets:
   help/short                          This help short screen
 
 ```
+<!-- markdownlint-restore -->
