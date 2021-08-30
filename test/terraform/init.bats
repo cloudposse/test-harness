@@ -1,16 +1,16 @@
 load 'lib'
 
 function setup() {
-  rm -rf .terraform
+  clean
 }
 
 function teardown() {
-  rm -rf .terraform
+  clean
 }
 
-@test "check if terraform init works" {
+@test "check if terraform init succeeds" {
   skip_unless_terraform
-  run terraform init
+  run terraform init -input=false
   log "$output"
   [ $status -eq 0 ]
 }
