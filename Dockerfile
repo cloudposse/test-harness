@@ -1,8 +1,10 @@
 FROM cloudposse/build-harness:0.58.4
 
-RUN apk add --update --no-cache go bats vert@cloudposse terraform-config-inspect@cloudposse \
+RUN apk add --update --no-cache go bats vert@cloudposse \
+  terraform-config-inspect@cloudposse terraform-docs@cloudposse \
   terraform-0.11@cloudposse terraform-0.12@cloudposse terraform-0.13@cloudposse \
   terraform-0.14@cloudposse terraform-0.15@cloudposse terraform-1@cloudposse
+
 
 COPY test/ /test/
 
