@@ -29,17 +29,15 @@ function teardown() {
 
   ## extract all required providers into string with 'provider' | then version constraint
   terraform-config-inspect --json . | jq '.required_providers | to_entries[] | "  - \(.key)|\(.value.version_constraints[])"' > $TMPFILE
-  ## check if provider version constraint doesn't use pessimistic constraint operator '~>'
-  ## then check diff between terraform-config-inspect output and regexp check to see if all cases are passing checks
-  fail=$(grep -E '[~>]' $TMPFILE) || true
+  ## Ensure provider version constraint is '>='
+  fail=$(grep -v '|>=' $TMPFILE) || true
   if [[ -n "$fail" ]]; then
     output_msg=$'\nCloud Posse requires all providers to be pinned with ">=" constraints and only ">=" constraints\n'
     output_msg+=$'Please fix these constraints:\n'
-    output_msg+=$(printf "%s\n" "${fail[@]}" | sed 's/|/  = /g' | sed 's/"//g')
+    output_msg+=$(printf "%s\n" "${fail[@]}" | sed 's/|/: /g' | sed 's/"//g')
     log "$output_msg"
-    return 1
   fi
-  true
+  [[ -z "$fail" ]]
 }
 
 @test "check if terraform providers have explicit source locations for TF =>0.13" {
