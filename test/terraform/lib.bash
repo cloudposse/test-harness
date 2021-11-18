@@ -60,7 +60,7 @@ function log() {
 }
 
 function clean() {
-  rm -rf .terraform
+  rm -rf .terraform .terraform.lock.hcl
 }
 
 function skip_unless_terraform() {
