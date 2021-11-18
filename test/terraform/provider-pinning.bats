@@ -19,17 +19,25 @@ function teardown() {
 @test "check if terraform providers are properly pinned" {
   skip_unless_terraform
 
+  # check if all required_providers have version_constraints
+  no_version_provider=$(terraform-config-inspect --json . | jq '.required_providers[] | select (.version_constraints == null)[]')
+  if [[ -n "$no_version_provider" ]]; then
+    fail_msg=$'Providers without version constraint found:\n'
+    log "${fail_msg}${no_version_provider}"
+    return 1
+  fi
+
   ## extract all required providers into string with 'provider' | then version constraint
   terraform-config-inspect --json . | jq '.required_providers | to_entries[] | "  - \(.key)|\(.value.version_constraints[])"' > $TMPFILE
   ## check if provider version constraint doesn't use pessimistic constraint operator '~>'
   ## then check diff between terraform-config-inspect output and regexp check to see if all cases are passing checks
-  fail=$(grep -E '[~<]' $TMPFILE) || true
+  fail=$(grep -E '[~>]' $TMPFILE) || true
   if [[ -n "$fail" ]]; then
-    printf '\n* Cloud Posse requires all providers to be pinned with ">=" constraints and only ">=" constraints\n'
-    printf '* Please fix these constraints:\n'
-    printf "%s\n" "${fail[@]}" | sed 's/|/  = /g' | sed 's/"//g'
-    printf "\n\n"
-    exit 1
+    output_msg=$'\nCloud Posse requires all providers to be pinned with ">=" constraints and only ">=" constraints\n'
+    output_msg+=$'Please fix these constraints:\n'
+    output_msg+=$(printf "%s\n" "${fail[@]}" | sed 's/|/  = /g' | sed 's/"//g')
+    log "$output_msg"
+    return 1
   fi
   true
 }
@@ -47,12 +55,12 @@ function teardown() {
     ## check if provider source exists for every provider
     fail=$(grep -F '|null' $TMPFILE) || true
     if [[ -n "$fail" ]]; then
-      printf '\n* Cloud Posse requires all providers to use registry format introduced in Terraform 0.13, for example\n'
-      printf '    aws = {\n       source  = "hashicorp/aws"\n       version = ">= 3.0"\n    }\n\n'
-      printf '* Please add constraints for these providers:\n'
-      printf "%s\n" "${fail[@]}" | cut '-d|' -f 1 | sed 's/"//g'
-      printf "\n\n"
-      exit 1
+      output_msg=$'\nCloud Posse requires all providers to use registry format introduced in Terraform 0.13, for example\n'
+      output_msg+=$'    aws = {\n       source  = "hashicorp/aws"\n       version = ">= 3.0"\n    }\n\n'
+      output_msg+=$'Please add constraints for these providers:\n'
+      output_msg+=$(printf "%s\n" "${fail[@]}" | cut '-d|' -f 1 | sed 's/"//g')
+      log "$output_msg"
+      return 1
     fi
     true
   fi

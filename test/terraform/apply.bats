@@ -18,6 +18,5 @@ function teardown() {
 @test "check if terraform apply works" {
   skip_unless_terraform
   run terraform apply
-  log "$output"
-  [ $status -eq 0 ]
+  log_on_error "$status" "$output"
 }

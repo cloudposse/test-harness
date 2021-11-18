@@ -18,19 +18,57 @@ function skip_if_disabled() {
   fi
 }
 
+function output_only() {
+  local output="$*"
+  if [ -n "${output}" ]; then
+    (
+    echo
+    echo "Test: ${BATS_TEST_DESCRIPTION}"
+    echo "File: $(basename ${BATS_TEST_FILENAME})"
+    echo "---------------------------------"
+    echo "${output}"
+    echo "---------------------------------"
+    echo
+    )
+  fi
+}
+
 function log() {
   local output="$*"
   if [ -n "${output}" ]; then
   (
   echo
-  echo "Test: ${BATS_TEST_DESCRIPTION}"
+  if [ -n "$LOG_MARKDOWN" ]; then
+    echo "<details>"
+    echo "<summary>Test: ${BATS_TEST_DESCRIPTION}</summary>"
+    echo
+    echo '```'
+  else
+    echo "Test: ${BATS_TEST_DESCRIPTION}"
+  fi
   echo "File: $(basename ${BATS_TEST_FILENAME})"
   echo "---------------------------------"
   echo "${output}"
   echo "---------------------------------"
+  if [ -n "$LOG_MARKDOWN" ]; then
+    echo '```'
+    echo "</details>"
+  fi
   echo
   ) | tee -a ${BATS_LOG} >&3
   fi
+}
+
+function log_on_error() {
+  local status="$1"
+  shift
+  local output="$*"
+  if [[ $status == "0" ]]; then
+    output_only "$output"
+  else
+    log "$output"
+  fi
+  return $status
 }
 
 function clean() {
