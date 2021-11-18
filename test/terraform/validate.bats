@@ -22,11 +22,6 @@ function teardown() {
   else
     export AWS_DEFAULT_REGION="us-east-2"
     run terraform validate .
-    if [ $status -ne 0 ]; then
-      log "$output"
-      return 1
-    else
-      output_only "$output"
-    fi
+    log_on_error "$status" "$output"
   fi
 }

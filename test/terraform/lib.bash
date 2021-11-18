@@ -59,6 +59,18 @@ function log() {
   fi
 }
 
+function log_on_error() {
+  local status="$1"
+  shift
+  local output="$*"
+  if [[ $status == "0" ]]; then
+    output_only "$output"
+  else
+    log "$output"
+  fi
+  return $status
+}
+
 function clean() {
   rm -rf .terraform .terraform.lock.hcl
 }

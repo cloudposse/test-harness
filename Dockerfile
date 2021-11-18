@@ -1,4 +1,4 @@
-FROM cloudposse/build-harness:0.58.4
+FROM cloudposse/build-harness:latest
 
 RUN apk add --update --no-cache go bats vert@cloudposse \
   terraform-config-inspect@cloudposse terraform-docs@cloudposse \
