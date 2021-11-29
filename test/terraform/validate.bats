@@ -23,9 +23,9 @@ function teardown() {
     export AWS_DEFAULT_REGION="us-east-2"
     export TEST_HARNESS_VALIDATE_DIR=examples/complete
     if [[ -d $TEST_HARNESS_VALIDATE_DIR ]]; then
-      run terraform validate -chdir=$TEST_HARNESS_VALIDATE_DIR
+      run terraform -chdir=$TEST_HARNESS_VALIDATE_DIR validate
     else
-      run terraform validate -chdir=.
+      run terraform -chdir=. validate
     fi
     log_on_error "$status" "$output"
   else
