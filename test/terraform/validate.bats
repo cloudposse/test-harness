@@ -15,10 +15,10 @@ function teardown() {
 
 @test "check if terraform code is valid" {
   skip_unless_terraform
-  if [[ "`terraform version | head -1`" =~ 0\.11 ]]; then
+  if [[ "`terraform version | head -1`" =~ ^0\.11 ]]; then
     run terraform validate -check-variables=false
-    [ $status -eq 0 ]
-    [ -z "$output" ]
+    log_on_error "$status" "$output"
+    [ -z "$output" ] || log_on_error "99" "$output"
   else
     export AWS_DEFAULT_REGION="us-east-2"
     run terraform validate .
