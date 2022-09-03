@@ -1,5 +1,7 @@
 name: "docker"
 on:
+  workflow_dispatch:
+
   pull_request:
     types: [opened, synchronize, reopened]
   release:
@@ -7,6 +9,7 @@ on:
     - created
   schedule:
     - cron:  '30 23 * * *'
+
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
