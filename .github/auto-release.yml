@@ -16,6 +16,7 @@ version-resolver:
       - 'bugfix'
       - 'bug'
       - 'hotfix'
+      - 'no-release'
   default: 'minor'
 
 categories:
