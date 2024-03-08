@@ -24,7 +24,7 @@ in-docker:
 		-v $(TEST_HARNESS_LOCAL_ROOT):/module/ \
 		$(DOCKER_IMAGE_NAME) -C /module/$(TEST_HARNESS_WORKING_DIR) $(TEST_HARNESS_TARGET)
 
-# Example for Makefile target to run with terratest (Makefile in ./test/src_
+# Example for Makefile target to run with terratest (Makefile in ./test/src)
 #
 # test: init
 #	go mod download
