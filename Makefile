@@ -4,6 +4,7 @@ export DOCKER_TAG ?= latest
 export DOCKER_IMAGE_NAME ?= $(DOCKER_IMAGE):$(DOCKER_TAG)
 export DOCKER_BUILD_FLAGS =
 export README_DEPS ?= docs/targets.md
+export DOCKER_DEFAULT_PLATFORM ?= linux/amd64
 
 -include $(shell curl -sSL -o .build-harness "https://cloudposse.tools/build-harness"; echo .build-harness)
 
@@ -12,4 +13,3 @@ export README_DEPS ?= docs/targets.md
 ## Build docker image
 build:
 	@make --no-print-directory docker/build
-
