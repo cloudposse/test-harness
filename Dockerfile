@@ -8,6 +8,8 @@ RUN apk add --update --no-cache go bats vert@cloudposse \
   terraform-0.14@cloudposse terraform-0.15@cloudposse terraform-1@cloudposse \
 	opentofu@community
 
+RUN update-alternatives --remove-all terraform
+
 
 COPY test/ /test/
 
