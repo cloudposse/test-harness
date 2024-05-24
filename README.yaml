@@ -48,9 +48,10 @@ usage: |-
   Use the `test-harness` Docker image as the base image in the application `Dockerfile`, and copy the modules from `tests` folder into `/tests/` folder in the Docker container.
 
   ```dockerfile
-  FROM cloudposse/test-harness:0.1.0 as test-harness
+  FROM cloudposse/test-harness:0.25.0 as test-harness
 
-  FROM cloudposse/geodesic:0.28.0
+  # Get latest release from https://github.com/cloudposse/geodesic/releases
+  FROM cloudposse/geodesic:2.11.3-alpine
 
   # Copy root modules into /conf folder
   COPY --from=test-harness /tests/ /tests/
