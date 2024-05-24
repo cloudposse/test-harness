@@ -2,14 +2,13 @@ FROM cloudposse/build-harness:latest
 
 RUN echo '@community https://dl-cdn.alpinelinux.org/alpine/edge/community' >> /etc/apk/repositories
 
+RUN apk del --no-interactive terraform-1 terraform
 RUN apk add --update --no-cache go bats vert@cloudposse \
   terraform-config-inspect@cloudposse terraform-docs@cloudposse \
   terraform-0.11@cloudposse terraform-0.12@cloudposse terraform-0.13@cloudposse \
-  terraform-0.14@cloudposse terraform-0.15@cloudposse terraform-1@cloudposse \
-	opentofu@community
-
-RUN update-alternatives --remove-all terraform
-
+  terraform-0.14@cloudposse terraform-0.15@cloudposse \
+  terraform-1@cloudposse=1.5.7-r0 \
+  opentofu@community
 
 COPY test/ /test/
 
