@@ -10,6 +10,11 @@ RUN apk add --update --no-cache go bats vert@cloudposse \
   terraform-1@cloudposse=1.5.7-r0 \
   opentofu@community
 
+# Install `tofu` as an alternative to `terraform`, if it is available.
+# Set priority to 5, which is lower than any other Cloud Posse Terraform package,
+# so that it is available, if Terraform is not installed, but does not interfere with Terraform installations.
+RUN command -v tofu >/dev/null && update-alternatives --install /usr/bin/terraform terraform $(command -v tofu) 5
+
 COPY test/ /test/
 
 # Our old Makefiles conditionally set TF_CLI_ARGS_init=-get-plugins=true but that
