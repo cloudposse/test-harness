@@ -28,7 +28,8 @@ function teardown() {
   fi
 
   ## extract all required providers into string with 'provider' | then version constraint
-  terraform-config-inspect --json . | jq '.required_providers | to_entries[] | "  - \(.key)|\(.value.version_constraints[])"' > $TMPFILE
+  ## Note that when using the builtin "terraform" provider, version_constraints is always null 
+  terraform-config-inspect --json . | jq '.required_providers | to_entries[] | select(.key != "terraform") | "  - \(.key)|\(.value.version_constraints[])"' > $TMPFILE
   ## Ensure provider version constraint is '>='
   fail=$(grep -v '|>=' $TMPFILE) || true
   if [[ -n "$fail" ]]; then
@@ -49,7 +50,8 @@ function teardown() {
     skip "Minimum Terraform version less than 0.12.26. Skipping check for explicit provider source locations"
   else
     ## extract all required providers with sources into string with 'provider' | then 'source'
-    terraform-config-inspect --json . | jq '.required_providers | to_entries[] | "  - \(.key)|\(.value.source)"' > $TMPFILE
+    ## Note that when using the builtin "terraform" provider, source is always null
+    terraform-config-inspect --json . | jq '.required_providers | to_entries[] | select(.key != "terraform") | "  - \(.key)|\(.value.source)"' > $TMPFILE
     ## check if provider source exists for every provider
     fail=$(grep -F '|null' $TMPFILE) || true
     if [[ -n "$fail" ]]; then
