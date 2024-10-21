@@ -8,7 +8,8 @@ RUN apk add --update --no-cache go bats vert@cloudposse \
   terraform-0.11@cloudposse terraform-0.12@cloudposse terraform-0.13@cloudposse \
   terraform-0.14@cloudposse terraform-0.15@cloudposse \
   terraform-1@cloudposse=1.5.7-r0 \
-  opentofu@community
+  opentofu@community \
+  atmos@cloudposse
 
 # Install `tofu` as an alternative to `terraform`, if it is available.
 # Set priority to 5, which is lower than any other Cloud Posse Terraform package,
