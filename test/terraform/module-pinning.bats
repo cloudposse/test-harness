@@ -21,7 +21,7 @@ function teardown() {
   terraform-config-inspect --json . | jq '.module_calls[] | "\(.source)|\(.version)"' | grep -v -F '"./modules' | grep -v '^"\.\./' > $TMPFILE || true
   ## check if module url have version in tags or if version pinned with 'version' parameter for Terraform Registry notation
   ## check diff between terraform-config-inspect output and regexp check to see if all cases are passing checks
-  fail=$(grep -vE '^(\".*?tags\/[0-9]+\.[0-9]+.*\|null\"\s?|\".*?\|[0-9]+\.[0-9]+.*\"\s?)+' $TMPFILE) || true
+  fail=$(grep -vE '^(\".*?tags\/v?[0-9]+\.[0-9]+.*\|null\"\s?|\".*?\|v?[0-9]+\.[0-9]+.*\"\s?)+' $TMPFILE) || true
   if [[ -n "$fail" ]]; then
     output_msg=$'\nCloud Posse requires all module sources to be pinned to a specific version, e.g. 0.9.1\n'
     output_msg+=$'Please fix these module sources:\n'
