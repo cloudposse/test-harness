@@ -11,5 +11,5 @@ permissions:
 
 jobs:
   release:
-    uses:  cloudposse/github-actions-workflows/.github/workflows/controller-release.yml@main
+    uses:  cloudposse/.github/.github/workflows/shared-auto-release.yml@main
 
