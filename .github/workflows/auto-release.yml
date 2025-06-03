@@ -12,4 +12,5 @@ permissions:
 jobs:
   release:
     uses:  cloudposse/.github/.github/workflows/shared-auto-release.yml@main
+    secrets: inherit
 
