@@ -13,3 +13,8 @@ export README_DEPS ?= docs/targets.md
 build:
 	@make --no-print-directory docker/build
 
+readme/build:
+	@atmos docs generate readme
+
+readme: 
+	@atmos docs generate readme
