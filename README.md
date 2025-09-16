@@ -2,7 +2,11 @@
 
 <!-- markdownlint-disable -->
 # test-harness <a href="https://cpco.io/homepage?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/test-harness&utm_content="><img align="right" src="https://cloudposse.com/logo-300x69.svg" width="150" /></a>
-<a href="https://g.codefresh.io/public/accounts/cloudposse/pipelines/cloudposse/test-harness/test-harness"><img src="https://g.codefresh.io/api/badges/pipeline/cloudposse/cloudposse%2Ftest-harness%2Ftest-harness?type=cf-1" alt="Codefresh Build Status"/></a><a href="https://github.com/cloudposse/test-harness/releases/latest"><img src="https://img.shields.io/github/release/cloudposse/test-harness.svg" alt="Latest Release"/></a><a href="https://slack.cloudposse.com"><img src="https://slack.cloudposse.com/badge.svg" alt="Slack Community"/></a>
+
+
+<a href="https://g.codefresh.io/public/accounts/cloudposse/pipelines/cloudposse/test-harness/test-harness"><img src="https://g.codefresh.io/api/badges/pipeline/cloudposse/cloudposse%2Ftest-harness%2Ftest-harness?type=cf-1" alt="Codefresh Build Status"/></a><a href="https://github.com/cloudposse/test-harness/releases/latest"><img src="https://img.shields.io/github/release/cloudposse/test-harness.svg" alt="Latest Release"/></a><a href="https://slack.cloudposse.com"><img src="https://slack.cloudposse.com/badge.svg" alt="Slack Community"/></a><a href="https://cloudposse.com/support/"><img src="https://img.shields.io/badge/Get_Support-success.svg?style=for-the-badge" alt="Get Support"/></a>
+
+
 <!-- markdownlint-restore -->
 
 <!--
@@ -59,6 +63,10 @@ COPY --from=test-harness /tests/ /tests/
 
 
 
+
+
+
+
 <!-- markdownlint-disable -->
 ## Makefile Targets
 ```text
@@ -107,6 +115,38 @@ In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
  6. Submit a **Pull Request** so that we can review your changes
 
 **NOTE:** Be sure to merge the latest changes from "upstream" before making a pull request!
+
+
+## Running Terraform Tests
+
+We use [Atmos](https://atmos.tools) to streamline how Terraform tests are run. It centralizes configuration and wraps common test workflows with easy-to-use commands.
+
+All tests are located in the [`test/`](test) folder.
+
+Under the hood, tests are powered by Terratest together with our internal [Test Helpers](https://github.com/cloudposse/test-helpers) library, providing robust infrastructure validation.
+
+Setup dependencies:
+- Install Atmos ([installation guide](https://atmos.tools/install/))
+- Install Go [1.24+ or newer](https://go.dev/doc/install)
+- Install Terraform or OpenTofu
+
+To run tests:
+
+- Run all tests:  
+  ```sh
+  atmos test run
+  ```
+- Clean up test artifacts:  
+  ```sh
+  atmos test clean
+  ```
+- Explore additional test options:  
+  ```sh
+  atmos test --help
+  ```
+The configuration for test commands is centrally managed. To review what's being imported, see the [`atmos.yaml`](https://raw.githubusercontent.com/cloudposse/.github/refs/heads/main/.github/atmos/terraform-module.yaml) file.
+
+Learn more about our [automated testing in our documentation](https://docs.cloudposse.com/community/contribute/automated-testing/) or implementing [custom commands](https://atmos.tools/core-concepts/custom-commands/) with atmos.
 
 ### 🌎 Slack Community
 
@@ -158,7 +198,7 @@ All other trademarks referenced herein are the property of their respective owne
 
 
 ---
-Copyright © 2017-2024 [Cloud Posse, LLC](https://cpco.io/copyright)
+Copyright © 2017-2025 [Cloud Posse, LLC](https://cpco.io/copyright)
 
 
 <a href="https://cloudposse.com/readme/footer/link?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/test-harness&utm_content=readme_footer_link"><img alt="README footer" src="https://cloudposse.com/readme/footer/img"/></a>
