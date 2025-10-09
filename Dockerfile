@@ -7,7 +7,7 @@ RUN apk add --update --no-cache go bats vert@cloudposse \
   terraform-config-inspect@cloudposse terraform-docs@cloudposse \
   terraform-0.11@cloudposse terraform-0.12@cloudposse terraform-0.13@cloudposse \
   terraform-0.14@cloudposse terraform-0.15@cloudposse \
-  terraform-1@cloudposse=1.5.7-r0 \
+  terraform-1@cloudposse \
   opentofu@community \
   atmos@cloudposse
 
