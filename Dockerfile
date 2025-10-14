@@ -24,14 +24,15 @@ RUN apk add --update --virtual .deps --no-cache gnupg && \
     gpg --verify ${PRODUCT}_${VERSION}_SHA256SUMS.sig ${PRODUCT}_${VERSION}_SHA256SUMS && \
     grep ${PRODUCT}_${VERSION}_linux_amd64.zip ${PRODUCT}_${VERSION}_SHA256SUMS | sha256sum -c && \
     unzip /tmp/${PRODUCT}_${VERSION}_linux_amd64.zip -d /tmp && \
-    mv /tmp/${PRODUCT} /usr/local/bin/${PRODUCT}-1 && \
+    mkdir -p /usr/share/terraform/1/bin && \
+    mv /tmp/${PRODUCT} /usr/share/terraform/1/bin/${PRODUCT} && \
     rm -f /tmp/${PRODUCT}_${VERSION}_linux_amd64.zip ${PRODUCT}_${VERSION}_SHA256SUMS ${VERSION}/${PRODUCT}_${VERSION}_SHA256SUMS.sig && \
     apk del .deps --force-broken-world 
 
 # Install `tofu` as an alternative to `terraform`, if it is available.
 # Set priority to 5, which is lower than any other Cloud Posse Terraform package,
 # so that it is available, if Terraform is not installed, but does not interfere with Terraform installations.
-RUN update-alternatives --install /usr/bin/terraform terraform /usr/local/bin/${PRODUCT}-1 4
+RUN update-alternatives --install /usr/bin/terraform terraform /usr/share/terraform/1/bin/${PRODUCT} 4
 
 # Install `tofu` as an alternative to `terraform`, if it is available.
 # Set priority to 5, which is lower than any other Cloud Posse Terraform package,
