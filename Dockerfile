@@ -13,7 +13,7 @@ RUN apk add --update --no-cache go bats vert@cloudposse \
 
 # https://www.hashicorp.com/en/blog/installing-hashicorp-tools-in-alpine-linux-containers
 ENV PRODUCT="terraform"
-ENV VERSION="v1.13.3"
+ENV VERSION="1.13.3"
 
 RUN apk add --update --virtual .deps --no-cache gnupg && \
     cd /tmp && \
