@@ -26,7 +26,7 @@ RUN apk add --update --virtual .deps --no-cache gnupg && \
     unzip /tmp/${PRODUCT}_${VERSION}_linux_amd64.zip -d /tmp && \
     mv /tmp/${PRODUCT} /usr/local/bin/${PRODUCT}-1 && \
     rm -f /tmp/${PRODUCT}_${VERSION}_linux_amd64.zip ${PRODUCT}_${VERSION}_SHA256SUMS ${VERSION}/${PRODUCT}_${VERSION}_SHA256SUMS.sig && \
-    apk del .deps
+    apk del .deps --force-broken-world 
 
 # Install `tofu` as an alternative to `terraform`, if it is available.
 # Set priority to 5, which is lower than any other Cloud Posse Terraform package,
