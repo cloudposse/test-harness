@@ -29,17 +29,18 @@ RUN apk add --update --virtual .deps --no-cache gnupg && \
     rm -f /tmp/${PRODUCT}_${VERSION}_linux_amd64.zip ${PRODUCT}_${VERSION}_SHA256SUMS ${VERSION}/${PRODUCT}_${VERSION}_SHA256SUMS.sig && \
     apk del .deps --force-broken-world 
 
-# Install `tofu` as an alternative to `terraform`, if it is available.
+RUN update-alternatives --install /usr/bin/terraform-1 terraform-1 /usr/share/terraform/1/bin/${PRODUCT} 1
+
+# Install `terraform-1` as an alternative to `terraform`, if it is available.
 # Set priority to 5, which is lower than any other Cloud Posse Terraform package,
 # so that it is available, if Terraform is not installed, but does not interfere with Terraform installations.
 RUN update-alternatives --install /usr/bin/terraform terraform /usr/share/terraform/1/bin/${PRODUCT} 4
+
 
 # Install `tofu` as an alternative to `terraform`, if it is available.
 # Set priority to 5, which is lower than any other Cloud Posse Terraform package,
 # so that it is available, if Terraform is not installed, but does not interfere with Terraform installations.
 RUN command -v tofu >/dev/null && update-alternatives --install /usr/bin/terraform terraform $(command -v tofu) 5
-
-RUN update-alternatives --list terraform
 
 COPY test/ /test/
 
