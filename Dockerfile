@@ -7,14 +7,39 @@ RUN apk add --update --no-cache go bats vert@cloudposse \
   terraform-config-inspect@cloudposse terraform-docs@cloudposse \
   terraform-0.11@cloudposse terraform-0.12@cloudposse terraform-0.13@cloudposse \
   terraform-0.14@cloudposse terraform-0.15@cloudposse \
-  terraform-1@cloudposse=1.5.7-r0 \
   opentofu@community \
   atmos@cloudposse
+
+
+# https://www.hashicorp.com/en/blog/installing-hashicorp-tools-in-alpine-linux-containers
+ENV PRODUCT="terraform"
+ENV VERSION="1.13.3"
+
+RUN apk add --update --virtual .deps --no-cache gnupg && \
+    cd /tmp && \
+    wget https://releases.hashicorp.com/${PRODUCT}/${VERSION}/${PRODUCT}_${VERSION}_linux_amd64.zip && \
+    wget https://releases.hashicorp.com/${PRODUCT}/${VERSION}/${PRODUCT}_${VERSION}_SHA256SUMS && \
+    wget https://releases.hashicorp.com/${PRODUCT}/${VERSION}/${PRODUCT}_${VERSION}_SHA256SUMS.sig && \
+    wget -qO- https://www.hashicorp.com/.well-known/pgp-key.txt | gpg --import && \
+    gpg --verify ${PRODUCT}_${VERSION}_SHA256SUMS.sig ${PRODUCT}_${VERSION}_SHA256SUMS && \
+    grep ${PRODUCT}_${VERSION}_linux_amd64.zip ${PRODUCT}_${VERSION}_SHA256SUMS | sha256sum -c && \
+    unzip /tmp/${PRODUCT}_${VERSION}_linux_amd64.zip -d /tmp && \
+    mkdir -p /usr/share/terraform/1/bin && \
+    mv /tmp/${PRODUCT} /usr/share/terraform/1/bin/${PRODUCT} && \
+    rm -f /tmp/${PRODUCT}_${VERSION}_linux_amd64.zip ${PRODUCT}_${VERSION}_SHA256SUMS ${VERSION}/${PRODUCT}_${VERSION}_SHA256SUMS.sig && \
+    apk del .deps --force-broken-world 
+
+# Install `tofu` as an alternative to `terraform`, if it is available.
+# Set priority to 5, which is lower than any other Cloud Posse Terraform package,
+# so that it is available, if Terraform is not installed, but does not interfere with Terraform installations.
+RUN update-alternatives --install /usr/bin/terraform terraform /usr/share/terraform/1/bin/${PRODUCT} 4
 
 # Install `tofu` as an alternative to `terraform`, if it is available.
 # Set priority to 5, which is lower than any other Cloud Posse Terraform package,
 # so that it is available, if Terraform is not installed, but does not interfere with Terraform installations.
 RUN command -v tofu >/dev/null && update-alternatives --install /usr/bin/terraform terraform $(command -v tofu) 5
+
+RUN update-alternatives --list terraform
 
 COPY test/ /test/
 
