@@ -39,6 +39,8 @@ RUN update-alternatives --install /usr/bin/terraform terraform /usr/share/terraf
 # so that it is available, if Terraform is not installed, but does not interfere with Terraform installations.
 RUN command -v tofu >/dev/null && update-alternatives --install /usr/bin/terraform terraform $(command -v tofu) 5
 
+RUN whereis terraform-0.13
+
 RUN update-alternatives --list terraform
 
 COPY test/ /test/
